@@ -8,7 +8,7 @@ import java.time.LocalDate;
 public class LocalDateAdapter implements JsonbAdapter<LocalDate, JsonObject> {
 
     @Override
-    public JsonObject adaptToJson(LocalDate obj) throws Exception {
+    public JsonObject adaptToJson(LocalDate obj) {
         return Json.createObjectBuilder()
                 .add("year", obj.getYear())
                 .add("month", obj.getMonthValue())
@@ -17,7 +17,7 @@ public class LocalDateAdapter implements JsonbAdapter<LocalDate, JsonObject> {
     }
 
     @Override
-    public LocalDate adaptFromJson(JsonObject obj) throws Exception {
+    public LocalDate adaptFromJson(JsonObject obj) {
         return LocalDate.of(obj.getInt("year"), obj.getInt("month"), obj.getInt("day"));
     }
 }

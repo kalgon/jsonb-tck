@@ -44,4 +44,17 @@ public class AdapterTest {
         assertEquals(LocalDate.of(2003, 12, 12), object.getAdaptedLocalDate());
         assertEquals(LocalDate.of(2007, 2, 28), object.getStandardLocalDate());
     }
+
+    @JsonbTest
+    public void writeArray(Jsonb jsonb) {
+        StringHolder holder = new StringHolder();
+        holder.setString("abc");
+        assertEquals("{\"string\":[\"a\",\"b\",\"c\"]}", jsonb.toJson(holder));
+    }
+
+    @JsonbTest
+    public void readArray(Jsonb jsonb) {
+        StringHolder holder = jsonb.fromJson("{\"string\":[\"a\",\"b\",\"c\"]}", StringHolder.class);
+        assertEquals("abc", holder.getString());
+    }
 }
