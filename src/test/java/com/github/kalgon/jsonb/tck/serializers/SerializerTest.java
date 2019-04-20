@@ -1,4 +1,4 @@
-package com.github.kalgon.jsonb.tck.adapters;
+package com.github.kalgon.jsonb.tck.serializers;
 
 import com.github.kalgon.jsonb.tck.JsonbTest;
 
@@ -8,25 +8,25 @@ import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AdapterTest {
+public class SerializerTest {
 
-    @JsonbTest(adapters = URIAdapter.class)
+    @JsonbTest(serializers = URICodec.class)
     public void writeWithAdapterHierarchy(Jsonb jsonb) {
         assertEquals("\"http://apache.org\"", jsonb.toJson(URI.create("http://apache.org")));
     }
 
-    @JsonbTest(adapters = URIAdapter.class)
+    @JsonbTest(deserializers = URICodec.class)
     public void readWithAdapterHierarchy(Jsonb jsonb) {
         assertEquals(URI.create("http://apache.org"), jsonb.fromJson("\"http://apache.org\"", URI.class));
     }
 
-    @JsonbTest(adapters = LocalDateAdapter.class)
-    public void writeToJsonObjectWithAdapter(Jsonb jsonb) {
+    @JsonbTest(serializers = LocalDateCodec.class)
+    public void writeToJsonObjectWithSerializer(Jsonb jsonb) {
         assertEquals("{\"year\":2012,\"month\":2,\"day\":17}", jsonb.toJson(LocalDate.of(2012, 2, 17)));
     }
 
-    @JsonbTest(adapters = LocalDateAdapter.class)
-    public void readFromJsonObjectWithAdapter(Jsonb jsonb) {
+    @JsonbTest(deserializers = LocalDateCodec.class)
+    public void readFromJsonObjectWithDeserializer(Jsonb jsonb) {
         assertEquals(LocalDate.of(2012, 2, 17), jsonb.fromJson("{\"year\":2012,\"month\":2,\"day\":17}", LocalDate.class));
     }
 }
